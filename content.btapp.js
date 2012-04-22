@@ -23,10 +23,10 @@
 		},
 		setup_dht: function(dht) {
 			if('get_any_hash' in dht) {
-				dht.get_any_hash(function() {}, this.hash);
+				dht.get_any_hash(this.hash);
 			} else {
 				dht.on('add:get_any_hash', function() {
-					btapp.get('dht').get_any_hash(function() {}, this.hash);
+					btapp.get('dht').get_any_hash(this.hash);
 				});
 			}
 		},
@@ -44,18 +44,18 @@
 		hash: function(hash) {
 			if(btapp.get('torrent').get(hash)) return;
 			var link = get_magnet_link(hash);
-			btapp.get('add').torrent(function() {}, link);
+			btapp.get('add').torrent(link);
 		},
 		torrent: function(torrent) {
-			torrent.set_priority(function() {}, Btapp.TORRENT.PRIORITY.METADATA_ONLY);
+			torrent.set_priority(Btapp.TORRENT.PRIORITY.METADATA_ONLY);
 		},
 		torrent_added_handler: function(status) {
 			if(btapp.get('torrent').get(status.hash)) {
-				btapp.get('torrent').get(status.hash).force_start(function() {});
+				btapp.get('torrent').get(status.hash).force_start();
 			} else {
 				btapp.get('torrent').on('add:' + status.hash, function(torrent) {
 					btapp.get('torrent').off('add:' + status.hash);
-					torrent.force_start(function() {});
+					torrent.force_start();
 				});
 			}
 		},
