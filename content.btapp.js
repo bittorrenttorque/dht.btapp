@@ -99,7 +99,11 @@
 			this.process_torrent_information(torrent);
 		},
 		process_torrent_information: function(torrent) {
-			debugger;
+			// Now that we have all the torrent file/metadata information,
+			// Notify whoever is listening, and provide the info...once
+			// that's been done there's no need to add the torrent again.
+			this.trigger('content', torrent.toJSON());
+			torrent.remove();
 		}
 	});
 }).call(this);
