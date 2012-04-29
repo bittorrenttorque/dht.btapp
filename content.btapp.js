@@ -8,7 +8,7 @@
 
 	BtappContent = Backbone.Model.extend({
 		initialize: function() {
-			window.btapp = new Btapp;
+			var btapp = new Btapp;
 			btapp.on('torrentStatus', this.status, this);
 			btapp.on('add:dht', this.setup_dht, this);
 
