@@ -9,4 +9,9 @@ The underlying torrent client takes part in the underlying distributed hash tabl
 This library listens for these info hashes and resolves the meta data associated with them before triggering a *content* event with the data.
 
 ## Usage
-Just 
+```js
+var listener = new BtappContent();
+listener.on('content', function(torrent) {
+  //process the information here
+});
+```
